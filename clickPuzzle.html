@@ -1,8 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Click Puzzle/title>
+  <title>Click Puzzle</title>
     <style>
+
+.puzzleOuterDiv {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  border-radius: 90px;
+  background-color: rgb(142, 142, 144);
+  align-items: center;
+  border-style: solid;
+  border-color: rgb(62, 64, 69);
+}
+
+.puzzleTimerDiv {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  border-radius: 20px;
+  background-color: rgb(125, 124, 124);
+  position: relative;
+  left: 60px;
+  align-items:center;
+  border-style: solid;
+  border-color: rgb(97, 95, 95);
+}
+
+
+.timerNum {
+  font-size: 50px;
+  color: rgba(238, 27, 8, 1);
+  font-weight: 700;
+  font-family: arial;
+}
+
+
+.failText {
+  font-size: 18px;
+  margin-left: 3px;
+}
+
+
 
 
     </style>
@@ -11,8 +51,31 @@
 <body>
   
 
+<div class="puzzleOuterDiv">
+  <div class="puzzleTimerDiv"><p style="flex: 0.48"></p><p class="timerNum"></p></div>
+</div>
+
+
+
+
+
 
 <script>
+
+
+function startPuzzle(timerStartNum) {
+  if (timerStartNum > 0) {
+ timer = document.querySelector('.timerNum')
+  timer.innerHTML = timerStartNum; 
+  setInterval(() => {
+    startPuzzle(timerStartNum --- 1)
+  }, 1000)} else {
+  timer.innerHTML = '<p class="failText">ACCESS DENIED</p>'
+  } }
+
+startPuzzle(12)
+
+
 
 
   
