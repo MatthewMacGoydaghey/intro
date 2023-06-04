@@ -31,18 +31,84 @@
 
 .timerNum {
   font-size: 50px;
-  color: rgba(238, 27, 8, 1);
+  color: rgb(238, 219, 8);
+  
   font-weight: 700;
   font-family: arial;
+  background:none
 }
 
 
 .failText {
   font-size: 18px;
   margin-left: 3px;
+  color: rgb(220, 7, 7);
 }
 
 
+.lamp1, .lamp2, .lamp3, .lamp4, .lamp5, .lamp6, .lamp7, .lamp8{
+  color: aqua;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(184, 200, 216, 0.9), rgba(186, 186, 216, 0.7));
+  cursor: pointer;
+  top: 15px;
+  left: 100px;
+}
+
+.lamp2 {
+  left: 165px;
+  top: 42px;
+}
+
+.lamp3 {
+  left: 185px;
+  top: 100px;
+}
+
+.lamp4 {
+  left: 165px;
+  top: 160px;
+}
+
+.lamp5 {
+  left: 100px;
+  top: 185px;
+}
+
+.lamp6 {
+  left: 40px;
+  top: 165px;
+}
+
+.lamp7 {
+  left: 15px;
+  top: 100px;
+}
+
+.lamp8 {
+  left: 35px;
+  top: 42px;
+}
+
+.lampOn {
+  background: linear-gradient(90deg, rgba(225, 211, 14, 1), rgba(240, 220, 36, 0.7));
+  box-shadow: -5px 5px 10px rgb(224, 224, 11, 0.3),
+   5px 5px 10px rgb(224, 224, 11, 0.3),
+   0px -5px 10px rgb(224, 224, 11, 0.2),
+   0px 0px 35px rgb(224, 224, 11, 1);
+}
+
+
+.lampHacked {
+  background: linear-gradient(90deg, rgba(34, 211, 11, 0.8), rgba(9, 204, 28, 0.7));
+  box-shadow: -5px 5px 10px rgba(18, 224, 11, 0.2),
+   5px 5px 10px rgb(18, 224, 11, 0.2),
+   0px -5px 10px rgb(18, 224, 11, 0.2),
+   0px 0px 35px rgb(20, 214, 10);
+}
 
 
     </style>
@@ -52,6 +118,14 @@
   
 
 <div class="puzzleOuterDiv">
+  <div class="lamp1" onclick="chekClick(1)"></div>
+  <div class="lamp2" onclick="chekClick(2)"></div>
+  <div class="lamp3" onclick="chekClick(3)"></div>
+  <div class="lamp4" onclick="chekClick(4)"></div>
+  <div class="lamp5" onclick="chekClick(5)"></div>
+  <div class="lamp6" onclick="chekClick(6)"></div>
+  <div class="lamp7" onclick="chekClick(7)"></div>
+  <div class="lamp8" onclick="chekClick(8)"></div>
   <div class="puzzleTimerDiv"><p style="flex: 0.48"></p><p class="timerNum"></p></div>
 </div>
 
@@ -63,19 +137,58 @@
 <script>
 
 
-function startPuzzle(timerStartNum) {
+function startPuzzle(time) {
+  startTimer(time)
+  startBeeping(1, 0, 'on')
+}
+
+startPuzzle(8)
+
+
+
+function startTimer(timerStartNum) {
   if (timerStartNum > 0) {
  timer = document.querySelector('.timerNum')
   timer.innerHTML = timerStartNum; 
-  setInterval(() => {
-    startPuzzle(timerStartNum --- 1)
+  setTimeout(() => {
+    startTimer(timerStartNum --- 1)
   }, 1000)} else {
   timer.innerHTML = '<p class="failText">ACCESS DENIED</p>'
+  timer.classList.add('off')
   } }
 
-startPuzzle(12)
 
 
+
+function startBeeping(num, previousNum, timerStatus) {
+  if (previousNum > 0) {
+  let currentPreviousNum = document.querySelector(`.lamp${previousNum}`)
+  currentPreviousNum.classList.remove('lampOn')}
+  if (num < 9 && timerStatus === 'on') {
+  let currentNum = document.querySelector(`.lamp${num}`)
+  currentNum.classList.add('lampOn')
+  setTimeout(() => {
+    console.log(num)
+    startBeeping(num + 1, previousNum = num, checkTimerStatus())
+  }, 200);} else if (timerStatus === 'on') {startBeeping(1, 0, 'on')}
+}
+
+
+function checkTimerStatus() {
+  let timer = document.querySelector('.timerNum')
+  if (timer.classList.contains('off')) {
+return 'off'
+  } else {return 'on'}
+}
+
+
+function chekClick(num) {
+  let lamp = document.querySelector(`.lamp${num}`)
+  if (lamp.classList.contains('lampOn')) {
+    lamp.classList.remove('lampOn')
+    lamp.classList.add('lampHacked')
+  }
+}
 
 
   
