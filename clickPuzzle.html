@@ -46,6 +46,13 @@
 }
 
 
+.grantedText {
+  font-size: 15px;
+  margin-left: 3px;
+  color: rgb(7, 220, 35);
+}
+
+
 .lamp1, .lamp2, .lamp3, .lamp4, .lamp5, .lamp6, .lamp7, .lamp8{
   color: aqua;
   width: 20px;
@@ -138,29 +145,37 @@
 
 
 function startPuzzle(time) {
-  startTimer(time)
+  startTimer(time, 'no')
   startBeeping(1, 0, 'on')
 }
 
-startPuzzle(8)
+startPuzzle(10)
 
 
-
-function startTimer(timerStartNum) {
-  if (timerStartNum > 0) {
+function startTimer(timerStartNum, ifGranted) {
+  if (timerStartNum > 0 && ifGranted === 'no') {
  timer = document.querySelector('.timerNum')
-  timer.innerHTML = timerStartNum; 
-  setTimeout(() => {
-    startTimer(timerStartNum --- 1)
-  }, 1000)} else {
+  timer.innerHTML = timerStartNum;
+  let timerId = setTimeout(() => {
+    startTimer(timerStartNum --- 1, checkIfGranted())
+  }, 1000)} else if (ifGranted === 'no') {
   timer.innerHTML = '<p class="failText">ACCESS DENIED</p>'
+  timer.classList.add('off')
+  } else {
+    timer.innerHTML = '<p class="grantedText">ACCESS GRANTED</p>'
   timer.classList.add('off')
   } }
 
 
 
 
-function startBeeping(num, previousNum, timerStatus) {
+function startBeeping(num, previousNum, timerStatus, hackedLamps) {
+  let range = num + 1
+  let beepingSpeed = 200;
+  if (hackedLamps === 2) {
+    range = num + Math.floor(Math.random() * 6) + 1;
+    beepingSpeed = 650;
+  }
   if (previousNum > 0) {
   let currentPreviousNum = document.querySelector(`.lamp${previousNum}`)
   currentPreviousNum.classList.remove('lampOn')}
@@ -169,8 +184,8 @@ function startBeeping(num, previousNum, timerStatus) {
   currentNum.classList.add('lampOn')
   setTimeout(() => {
     console.log(num)
-    startBeeping(num + 1, previousNum = num, checkTimerStatus())
-  }, 200);} else if (timerStatus === 'on') {startBeeping(1, 0, 'on')}
+    startBeeping(range, previousNum = num, checkTimerStatus(), checkHackedCountity())
+  }, beepingSpeed);} else if (timerStatus === 'on') {startBeeping(1, 0, 'on', checkHackedCountity())}
 }
 
 
@@ -182,13 +197,30 @@ return 'off'
 }
 
 
+let granted = 0;
+
 function chekClick(num) {
   let lamp = document.querySelector(`.lamp${num}`)
   if (lamp.classList.contains('lampOn')) {
     lamp.classList.remove('lampOn')
     lamp.classList.add('lampHacked')
+    granted++;
   }
+
 }
+
+function checkIfGranted() {
+  if (granted === 8) {
+    return "yes"
+  } else {
+  return "no"
+  }}
+
+
+  function checkHackedCountity() {
+    let hackedLamps = granted;
+    return hackedLamps
+  }
 
 
   
