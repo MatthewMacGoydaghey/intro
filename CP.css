@@ -1,0 +1,112 @@
+.puzzleOuterDiv {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  border-radius: 90px;
+  background-color: rgb(142, 142, 144);
+  align-items: center;
+  border-style: solid;
+  border-color: rgb(62, 64, 69);
+}
+
+.puzzleTimerDiv {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  border-radius: 20px;
+  background-color: rgb(125, 124, 124);
+  position: relative;
+  left: 60px;
+  align-items:center;
+  border-style: solid;
+  border-color: rgb(97, 95, 95);
+}
+
+
+.timerNum {
+  font-size: 50px;
+  color: rgb(238, 219, 8);
+  
+  font-weight: 700;
+  font-family: arial;
+  background:none
+}
+
+
+.failText {
+  font-size: 18px;
+  margin-left: 3px;
+  color: rgb(220, 7, 7);
+}
+
+
+.grantedText {
+  font-size: 15px;
+  margin-left: 3px;
+  color: rgb(7, 220, 35);
+}
+
+
+.lamp1, .lamp2, .lamp3, .lamp4, .lamp5, .lamp6, .lamp7, .lamp8{
+  color: aqua;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(184, 200, 216, 0.9), rgba(186, 186, 216, 0.7));
+  cursor: pointer;
+  top: 15px;
+  left: 100px;
+}
+
+.lamp2 {
+  left: 165px;
+  top: 42px;
+}
+
+.lamp3 {
+  left: 185px;
+  top: 100px;
+}
+
+.lamp4 {
+  left: 165px;
+  top: 160px;
+}
+
+.lamp5 {
+  left: 100px;
+  top: 185px;
+}
+
+.lamp6 {
+  left: 40px;
+  top: 165px;
+}
+
+.lamp7 {
+  left: 15px;
+  top: 100px;
+}
+
+.lamp8 {
+  left: 35px;
+  top: 42px;
+}
+
+.lampOn {
+  background: linear-gradient(90deg, rgba(225, 211, 14, 1), rgba(240, 220, 36, 0.7));
+  box-shadow: -5px 5px 10px rgb(224, 224, 11, 0.3),
+   5px 5px 10px rgb(224, 224, 11, 0.3),
+   0px -5px 10px rgb(224, 224, 11, 0.2),
+   0px 0px 35px rgb(224, 224, 11, 1);
+}
+
+
+.lampHacked {
+  background: linear-gradient(90deg, rgba(34, 211, 11, 0.8), rgba(9, 204, 28, 0.7));
+  box-shadow: -5px 5px 10px rgba(18, 224, 11, 0.2),
+   5px 5px 10px rgb(18, 224, 11, 0.2),
+   0px -5px 10px rgb(18, 224, 11, 0.2),
+   0px 0px 35px rgb(20, 214, 10);
+}
